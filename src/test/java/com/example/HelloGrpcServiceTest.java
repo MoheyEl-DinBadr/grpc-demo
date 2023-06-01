@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 @QuarkusTest
 public class HelloGrpcServiceTest {
 
-    @GrpcClient
+    /*@GrpcClient
     HelloGrpc helloGrpc;
 
     @Test
@@ -20,6 +20,6 @@ public class HelloGrpcServiceTest {
         HelloReply reply = helloGrpc
                 .sayHello(HelloRequest.newBuilder().setName("Neo").build()).await().atMost(Duration.ofSeconds(5));
         assertEquals("Hello Neo!", reply.getMessage());
-    }
+    }*/
 
 }

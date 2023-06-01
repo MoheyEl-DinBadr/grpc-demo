@@ -7,13 +7,22 @@ option java_outer_classname = "HelloGrpcProto";
 package hello;
 
 service HelloGrpc {
-    rpc SayHello (HelloRequest) returns (HelloReply) {}
+  rpc SayHello (Empty) returns (TestPojo) {}
 }
 
-message HelloRequest {
-    string name = 1;
+message Empty {
 }
 
-message HelloReply {
-    string message = 1;
+message GameOfThronesGrpc {
+  string id = 1;
+  string character = 2;
+  string city = 3;
+  string dragon = 4;
+  string house = 5;
+  string quote = 6;
 }
+
+message TestPojo {
+  repeated GameOfThronesGrpc game_of_thrones_list = 1;
+}
+
