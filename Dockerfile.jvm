@@ -77,16 +77,17 @@
 #   accessed directly. (example: "foo.example.com,bar.example.com")
 #
 ###
-FROM registry.access.redhat.com/ubi8/openjdk-17:1.15
+FROM registry.access.redhat.com/ubi8/openjdk-21:1.18
 
 ENV LANGUAGE='en_US:en'
 
 
 # We make four distinct layers so if there are application changes the library layers can be re-used
-COPY --chown=185 target/quarkus-app/lib/ /deployments/lib/
-COPY --chown=185 target/quarkus-app/*.jar /deployments/
-COPY --chown=185 target/quarkus-app/app/ /deployments/app/
-COPY --chown=185 target/quarkus-app/quarkus/ /deployments/quarkus/
+#COPY --chown=185 target/quarkus-app/lib/ /deployments/lib/
+#COPY --chown=185 target/quarkus-app/*.jar /deployments/
+#COPY --chown=185 target/quarkus-app/app/ /deployments/app/
+#COPY --chown=185 target/quarkus-app/quarkus/ /deployments/quarkus/
+COPY --chown=185 target/grpc-demo-1.0-SNAPSHOT-runner.jar /grpc-demo-1.0-SNAPSHOT.jar
 
 #ADD ../../target/quarkus-app/quarkus-run.jar quarkus-run.jar
 
@@ -96,7 +97,7 @@ EXPOSE 1099
 
 USER 185
 ENV JAVA_OPTS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Xms100m -Xmx250m -Dcom.sun.management.jmxremote.port=1099 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.rmi.port=1099 -Djava.rmi.server.hostname=127.0.0.1"
-ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
+ENV JAVA_APP_JAR="/grpc-demo-1.0-SNAPSHOT.jar"
 
 #ENTRYPOINT ["java ", "-jar quarkus-app.jar -Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Xms100m -Xmx250m -Dcom.sun.management.jmxremote.port=1099 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.rmi.port=1099 -Djava.rmi.server.hostname=127.0.0.1"]
 

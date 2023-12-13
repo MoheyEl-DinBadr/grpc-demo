@@ -1,3 +1,4 @@
+/*
 package com.example;
 
 import com.example.repository.GameOfThronesRepo;
@@ -32,3 +33,4 @@ public class HelloGrpcService implements HelloGrpc {
     }
 
 }
+*/

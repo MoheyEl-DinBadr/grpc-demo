@@ -1,3 +1,4 @@
+/*
 package com.example.model;
 
 import java.util.List;
@@ -18,3 +19,4 @@ public class TestPojoTest {
         this.game_of_thrones_list = game_of_thrones_list;
     }
 }
+*/

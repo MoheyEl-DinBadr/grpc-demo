@@ -5,22 +5,27 @@ services:
     build:
       dockerfile: Dockerfile.jvm
     ports:
-      - "9000:9000"
+#      - "9000:9000"
+      - "9000:8080"
       - "1099:1099"
     mem_limit: 400m
-
+    environment:
+      QUARKUS_GRPC_SERVER_USE_SEPARATE_SERVER: falsee
+      QUARKUS_MONGODB_HOSTS: mongo-grpc:27017
 
   demo-rest:
     build:
       dockerfile: Dockerfile.jvm
     ports:
-      - "8080:8080"
+      - "8088:8080"
       - "1098:1099"
-    environment:
-      QUARKUS_MONGODB_HOSTS: mongo:27017
     mem_limit: 400m
+    environment:
+      QUARKUS_GRPC_SERVER_USE_SEPARATE_SERVER: false
+      QUARKUS_MONGODB_HOSTS: mongo-rest:27017
 
-  mongo:
+
+  mongo-grpc:
     image: mongo
     mem_limit: 300m
     environment:
@@ -29,14 +34,24 @@ services:
 #      MONGO_INITDB_DATABASE: gameofthrones
       retryWrites: false
     ports:
-      - 27017:27017
+      - "27017:27017"
 
-  mongo-express:
-    image: mongo-express
+  mongo-rest:
+    image: mongo
     mem_limit: 300m
-    ports:
-      - 8081:8081
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+      #      MONGO_INITDB_ROOT_USERNAME: root
+      #      MONGO_INITDB_ROOT_PASSWORD: example
+      #      MONGO_INITDB_DATABASE: gameofthrones
+      retryWrites: false
+    ports:
+      - "27018:27017"
+#  mongo-express:
+#    image: mongo-express
+#    mem_limit: 300m
+#    ports:
+#      - "8081:8081"
+#    environment:
+#      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+#      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+#      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
